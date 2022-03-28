@@ -10,8 +10,9 @@
 
 <body>
   <div id="app">
-    <h1>{{ message }}</h1>
-    <input type="text" v-model>
+    <h1>My ToDoList with VueJS</h1>
+    <input type="text" v-model="message" @click="deleteInputMessage" />
+    <a href="#" @click="ajouter" v-if=" message != '' ">Ajouter</a>
     <p v-bind:title="message" v-for="todo in todos" @click="inverser">
       {{ todo }}
     </p>
@@ -21,13 +22,20 @@
     const vm = Vue.createApp({
       data(){
         return{
-          message: "My ToDoList with VueJS",
+          message: "Ajoute une tâche",
           todos: ["Sauver le monde", "Apprendre Vue JS", "Boire un café"]
         }
       },
       methods:{
         inverser(){
           this.todos.reverse();
+        },
+        ajouter(){
+          this.todos.push(this.message);
+          this.message = '';
+        },
+        deleteInputMessage(){
+          this.message = '';
         }
       }
     }).mount('#app')
